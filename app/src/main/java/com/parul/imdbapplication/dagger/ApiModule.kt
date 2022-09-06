@@ -47,9 +47,9 @@ object ApiModule{
         val client = OkHttpClient.Builder()
         val interceptor = HttpLoggingInterceptor()
         interceptor.level = HttpLoggingInterceptor.Level.BODY
-        client.addInterceptor(interceptor)
         client.connectTimeout(20, TimeUnit.SECONDS)
         client.readTimeout(20,TimeUnit.SECONDS)
+        client.addInterceptor(interceptor)
         return client.build()
     }
 
@@ -60,12 +60,13 @@ object ApiModule{
             .addConverterFactory(GsonConverterFactory.create(gson))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .baseUrl(BASE_URL)
+            .client(okHttpClient)
             .build()
     }
 
     @Provides
     @Singleton
-    fun provideApiService(retrofit: Retrofit) = retrofit.create(WeatherAPI::class.java)
+    fun provideApiService(retrofit: Retrofit): WeatherAPI = retrofit.create(WeatherAPI::class.java)
 
     @Provides
     @Singleton

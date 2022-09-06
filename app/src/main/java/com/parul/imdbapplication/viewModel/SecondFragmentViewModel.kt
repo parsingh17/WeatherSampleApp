@@ -21,31 +21,50 @@ class SecondFragmentViewModel @Inject constructor(
 
     private val compositeDisposable = CompositeDisposable()
     var navigationCommand = SingleLiveEvent<Int>()
-    private var cityName: String = "delhi"
-    val weather_data = MutableLiveData<WeatherModel>()
-    var degreesTextViewField = ObservableField<String>()
-
+    lateinit var weather_data: WeatherModel
 
     fun handleArguments(arguments: Bundle?) {
-        arguments?.getString("CITY NAME")?.let {
-            cityName = it
-            Log.d("WEATHER", "cityName == $cityName")
+        var lat = ""
+        var lng = ""
+        arguments?.getString("LAT")?.let {
+            lat = it
+            Log.d("WEATHER", "lat == $lat")
         }
-        getWeatherData()
+        arguments?.getString("LNG")?.let {
+            lng = it
+            Log.d("WEATHER", "lng == $lng")
+        }
+        if (!lat.isNullOrEmpty() && !lng.isNullOrEmpty())
+            getWeatherDataFromLatLng(lat, lng)
     }
 
     private fun getWeatherData() {
-        repository.getWeatherData(cityName)
+        repository.getWeatherData("new york")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-            weather_data.value = it
+            weather_data = it
             Log.d("WEATHER", "onSuccess: Success => ${it.main.temp}")
-            degreesTextViewField.set(it.main.temp.toString())
+            //degreesTextViewField.set(it.main.temp.toString())
         }, {
             Log.e("WEATHER",it.message ?: it.toString())
             navigationCommand.value = UPDATE_ERROR
         }).let { compositeDisposable.add(it) }
+
+    }
+
+    private fun getWeatherDataFromLatLng(lat: String, lng: String) {
+        repository.getWeatherDataFromLatLng(lat, lng)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                weather_data = it
+                Log.d("WEATHER", "onSuccess: Success => ${it.main.temp}")
+                navigationCommand.value = UPDATE_WEATHER_DATA
+            }, {
+                Log.e("WEATHER",it.message ?: it.toString())
+                navigationCommand.value = UPDATE_ERROR
+            }).let { compositeDisposable.add(it) }
 
     }
 

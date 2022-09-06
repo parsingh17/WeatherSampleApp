@@ -8,6 +8,10 @@
         <import type="android.view.View" />
 
         <variable
+            name="vm"
+            type="com.parul.imdbapplication.viewModel.FirstFragmentViewModel" />
+
+        <variable
             name="firstFragmentEventListener"
             type="com.parul.imdbapplication.fragment.FirstFragmentEventListener" />
     </data>
@@ -21,11 +25,23 @@
             android:id="@+id/textview_first"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/hello_first_fragment"
-            app:layout_constraintBottom_toTopOf="@id/button_first"
+            android:text="@string/welcome_to_weather"
+            app:layout_constraintBottom_toTopOf="@id/tv_address"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#a4c639"
+            android:textSize="20sp"
+            android:gravity="center_horizontal"
+            app:layout_constraintBottom_toTopOf="@id/button_first"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textview_first" />
 
         <Button
             android:id="@+id/button_first"
@@ -35,7 +51,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textview_first"
+            app:layout_constraintTop_toBottomOf="@id/tv_address"
             android:onClick="@{(view) -> firstFragmentEventListener.onNextButtonClicked()}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

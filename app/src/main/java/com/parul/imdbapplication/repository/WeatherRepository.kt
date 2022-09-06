@@ -16,5 +16,6 @@ class WeatherRepository @Inject constructor(
 
     fun getWeatherData(cityName: String): Single<WeatherModel> = weatherServiceProvider.getData(cityName)
 
+    fun getWeatherDataFromLatLng(lat: String, lng: String): Single<WeatherModel> = weatherServiceProvider.getDataFromLatLng(lat, lng)
 
 }

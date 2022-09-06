@@ -5,6 +5,7 @@ import io.reactivex.Single
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Query
 
 interface WeatherAPIService {
 
@@ -19,8 +20,8 @@ interface WeatherAPIService {
         .build()
         .create(WeatherAPI::class.java)*/
 
-    fun getData(cityName: String): Single<WeatherModel> /*{
-        return api.getData(cityName)
-    }*/
+    fun getData(cityName: String): Single<WeatherModel>
+
+    fun getDataFromLatLng(latitude: String, longitude: String): Single<WeatherModel>
 
 }
