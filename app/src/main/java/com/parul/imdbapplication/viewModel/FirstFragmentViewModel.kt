@@ -2,6 +2,7 @@ package com.parul.imdbapplication.viewModel
 
 import android.annotation.SuppressLint
 import android.app.Application
+import android.location.Address
 import android.location.Geocoder
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
@@ -19,13 +20,15 @@ class FirstFragmentViewModel @Inject constructor(
     val repository: WeatherRepository
 ) : AndroidViewModel(app){
 
-    var fusedLocationProviderClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(app)
+    lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     var myCurrentLatLngLiveData: LatLng? = null
     var navigationCommand = SingleLiveEvent<Int>()
     var address = MutableLiveData<String>()
+    lateinit var geocoder: Geocoder
 
     @SuppressLint("MissingPermission")
     fun requestLocationUpdate() {
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(app)
         fusedLocationProviderClient.flushLocations()
 
         val locationRequest = LocationRequest().apply {
@@ -48,16 +51,14 @@ class FirstFragmentViewModel @Inject constructor(
     }
 
     fun updateCurrentAddress() {
-        val geocoder = Geocoder(app, Locale.getDefault())
+        //geocoder = Geocoder(app, Locale.getDefault())
         if (myCurrentLatLngLiveData != null) {
-            val addresses = geocoder.getFromLocation(
+            val addresses = Geocoder(app, Locale.getDefault()).getFromLocation(
                 myCurrentLatLngLiveData!!.latitude,
-                myCurrentLatLngLiveData!!.longitude,
-                1
-            )
+                myCurrentLatLngLiveData!!.longitude, 1)
             address.value = addresses[0].getAddressLine(0)
-            Log.d("WEATHER","address = ${address.value}")
         }
+        Log.d("WEATHER","address = ${address.value}")
     }
 
     fun onNextButtonClicked() {

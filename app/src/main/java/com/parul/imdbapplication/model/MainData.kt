@@ -15,4 +15,15 @@ data class MainData(
     val tempMax: Double,
     @SerializedName("temp_min")
     val tempMin: Double
-)
+) {
+    constructor(temp: Double) : this(
+         feelsLike= 12.1212,
+    grndLevel=12,
+     humidity=12,
+     pressure=12,
+    seaLevel=123,
+    temp=temp,
+    tempMax=30.12,
+    tempMin=20.12
+    )
+}

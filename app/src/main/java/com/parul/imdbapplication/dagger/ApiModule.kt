@@ -4,6 +4,7 @@ import android.app.Application
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.parul.imdbapplication.BuildConfig
 import com.parul.imdbapplication.apiService.WeatherAPI
 import com.parul.imdbapplication.apiService.WeatherAPIService
 import com.parul.imdbapplication.apiService.WeatherApiServiceImpl
@@ -12,6 +13,7 @@ import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -50,6 +52,12 @@ object ApiModule{
         client.connectTimeout(20, TimeUnit.SECONDS)
         client.readTimeout(20,TimeUnit.SECONDS)
         client.addInterceptor(interceptor)
+
+        client.addInterceptor { chain ->
+            val request: Request = chain.request().newBuilder().addHeader("APPID", BuildConfig.apiKey).build()
+            chain.proceed(request)
+        }
+
         return client.build()
     }
 

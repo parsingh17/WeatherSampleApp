@@ -38,22 +38,22 @@ class SecondFragmentViewModel @Inject constructor(
             getWeatherDataFromLatLng(lat, lng)
     }
 
-    private fun getWeatherData() {
-        repository.getWeatherData("new york")
+    fun getWeatherData(cityName: String = "New York") {
+        repository.getWeatherData(cityName)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-            weather_data = it
-            Log.d("WEATHER", "onSuccess: Success => ${it.main.temp}")
-            //degreesTextViewField.set(it.main.temp.toString())
-        }, {
-            Log.e("WEATHER",it.message ?: it.toString())
-            navigationCommand.value = UPDATE_ERROR
-        }).let { compositeDisposable.add(it) }
+                weather_data = it
+                Log.d("WEATHER", "onSuccess: Success => ${it.main.temp}")
+                navigationCommand.value = UPDATE_WEATHER_DATA
+            }, {
+                Log.e("WEATHER",it.message ?: it.toString())
+                navigationCommand.value = UPDATE_ERROR
+            }).let { compositeDisposable.add(it) }
 
     }
 
-    private fun getWeatherDataFromLatLng(lat: String, lng: String) {
+    fun getWeatherDataFromLatLng(lat: String, lng: String) {
         repository.getWeatherDataFromLatLng(lat, lng)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
