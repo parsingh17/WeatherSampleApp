@@ -5,10 +5,10 @@ import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.parul.imdbapplication.BuildConfig
-import com.parul.imdbapplication.apiService.WeatherAPI
-import com.parul.imdbapplication.apiService.WeatherAPIService
-import com.parul.imdbapplication.apiService.WeatherApiServiceImpl
-import com.parul.imdbapplication.utils.BASE_URL
+import com.parul.imdbapplication.data.apiService.WeatherAPI
+import com.parul.imdbapplication.data.repository.WeatherApiServiceImpl
+import com.parul.imdbapplication.common.BASE_URL
+import com.parul.imdbapplication.domain.repositories.WeatherRepo
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache
@@ -78,5 +78,5 @@ object ApiModule{
 
     @Provides
     @Singleton
-    fun provideApiHelper(apiHelper: WeatherApiServiceImpl): WeatherAPIService = apiHelper
+    fun provideApiHelper(apiHelper: WeatherApiServiceImpl): WeatherRepo = apiHelper
 }

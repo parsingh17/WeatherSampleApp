@@ -27,7 +27,7 @@ import kotlin.test.assertEquals
 
 
 @RunWith(MockitoJUnitRunner::class)
-class SecondFragmentViewModelTest {
+class GetWeatherByLongLatUsecaseTest {
     // A JUnit Test Rule that swaps the background executor used by
     // the Architecture Components with a different one which executes each task synchronously.
     // You can use this rule for your host side tests that use Architecture Components.

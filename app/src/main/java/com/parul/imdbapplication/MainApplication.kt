@@ -3,10 +3,8 @@ package com.parul.imdbapplication
 import android.app.Application
 import android.content.Context
 import androidx.lifecycle.ProcessLifecycleOwner
-import com.parul.imdbapplication.dagger.ApiModule
 import com.parul.imdbapplication.dagger.AppComponent
 import com.parul.imdbapplication.dagger.DaggerAppComponent
-import com.parul.imdbapplication.listener.AppLifeCycleListener
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -18,9 +16,9 @@ class MainApplication : Application(), HasAndroidInjector {
         @Inject set
     private var mAppComponent: AppComponent? = null
 
-    private val lifecycleListener: AppLifeCycleListener by lazy {
+/*    private val lifecycleListener: AppLifeCycleListener by lazy {
         AppLifeCycleListener()
-    }
+    }*/
 
     override fun onCreate() {
         super.onCreate()
@@ -34,7 +32,7 @@ class MainApplication : Application(), HasAndroidInjector {
             .application(this) // This also corresponds to the name of your module: %component_name%Module
             .build()*/
 
-        setupLifeCycleListener()
+        //setupLifeCycleListener()
 
     }
 
@@ -42,9 +40,9 @@ class MainApplication : Application(), HasAndroidInjector {
 
     override fun androidInjector(): AndroidInjector<Any>? = androidInjector
 
-    private fun setupLifeCycleListener() {
+/*    private fun setupLifeCycleListener() {
         ProcessLifecycleOwner.get().lifecycle.addObserver(lifecycleListener)
-    }
+    }*/
 
     companion object {
         var instance = MainApplication()

@@ -9,17 +9,17 @@
 
         <variable
             name="vm"
-            type="com.parul.imdbapplication.viewModel.SecondFragmentViewModel" />
+            type="com.parul.imdbapplication.presentation.viewModel.SecondFragmentViewModel" />
 
         <variable
             name="secondFragmentEventListener"
-            type="com.parul.imdbapplication.fragment.SecondFragmentEventListener" />
+            type="com.parul.imdbapplication.presentation.fragment.SecondFragmentEventListener" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.SecondFragment">
+    tools:context=".presentation.fragment.SecondFragment">
 
     <TextView
         android:id="@+id/info"
@@ -43,7 +43,7 @@
         android:id="@+id/tv_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="clouds"
+        android:text= "@={vm.weatherDetailLiveData.weatherMain}"
         android:textSize="20dp"
         app:layout_constraintBottom_toTopOf="@id/imageview"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
@@ -58,7 +58,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/info"
-        android:text= "scattered cloud" />
+        android:text= "@={vm.weatherDetailLiveData.weatherDescription}" />
 
     <ImageView
         android:id="@+id/imageview"
@@ -67,8 +67,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_main"
-        app:layout_constraintBottom_toTopOf="@id/tv_temperature" />
-
+        app:layout_constraintBottom_toTopOf="@id/tv_temperature"
+        app:weatherImage= "@{vm.weatherDetailLiveData.weatherIconUrl}"/> <!--IMP: @={ is not used here like other values-->
 
     <TextView
         android:id="@+id/tv_temperature"
@@ -78,7 +78,7 @@
         app:layout_constraintBottom_toTopOf="@id/button_second"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/imageview"
-        android:text= "temperature" />
+        android:text= "Temperature:" />
 
     <TextView
         android:id="@+id/tv_degrees"
@@ -89,7 +89,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/imageview"
-        android:text= "201111111" />
+        android:text= "@={vm.weatherDetailLiveData.mainDataTemp}" />
 
     <Button
         android:id="@+id/button_second"

@@ -3,15 +3,12 @@ package com.parul.imdbapplication
 import android.app.Application
 import android.location.Address
 import android.location.Geocoder
-import android.util.Log
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.vision.barcode.Barcode
-import com.parul.imdbapplication.repository.WeatherRepository
-import com.parul.imdbapplication.viewModel.FirstFragmentViewModel
-import com.parul.imdbapplication.viewModel.FirstFragmentViewModel.Companion.NAV_BACK
-import com.parul.imdbapplication.viewModel.FirstFragmentViewModel.Companion.NAV_NEXT
+import com.parul.imdbapplication.presentation.viewModel.FirstFragmentViewModel
+import com.parul.imdbapplication.presentation.viewModel.FirstFragmentViewModel.Companion.NAV_BACK
+import com.parul.imdbapplication.presentation.viewModel.FirstFragmentViewModel.Companion.NAV_NEXT
 import io.mockk.verify
 import org.junit.*
 import org.junit.runner.RunWith
@@ -35,8 +32,6 @@ class FirstFragmentViewModelTest {
         val schedulers = RxImmediateSchedulerRule()
     }
 
-    @Mock
-    lateinit var repositoryMock: WeatherRepository
 
     private val application = Mockito.mock(Application::class.java)
 
@@ -49,7 +44,7 @@ class FirstFragmentViewModelTest {
 
     @Before
     fun setup() {
-        viewModel = FirstFragmentViewModel(application, repositoryMock)
+        viewModel = FirstFragmentViewModel(application)
 
         mockFusedLocationProviderClient = Mockito.mock(FusedLocationProviderClient::class.java)
         viewModel.fusedLocationProviderClient = mockFusedLocationProviderClient

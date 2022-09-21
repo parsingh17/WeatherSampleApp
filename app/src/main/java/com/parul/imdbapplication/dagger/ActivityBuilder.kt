@@ -1,6 +1,6 @@
 package com.parul.imdbapplication.dagger
 
-import com.parul.imdbapplication.activity.MainActivity
+import com.parul.imdbapplication.presentation.activity.MainActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

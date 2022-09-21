@@ -9,17 +9,17 @@
 
         <variable
             name="vm"
-            type="com.parul.imdbapplication.viewModel.FirstFragmentViewModel" />
+            type="com.parul.imdbapplication.presentation.viewModel.FirstFragmentViewModel" />
 
         <variable
             name="firstFragmentEventListener"
-            type="com.parul.imdbapplication.fragment.FirstFragmentEventListener" />
+            type="com.parul.imdbapplication.presentation.fragment.FirstFragmentEventListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragment.FirstFragment">
+        tools:context=".presentation.fragment.FirstFragment">
 
         <TextView
             android:id="@+id/textview_first"

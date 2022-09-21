@@ -1,7 +1,7 @@
 package com.parul.imdbapplication.dagger
 
-import com.parul.imdbapplication.fragment.FirstFragment
-import com.parul.imdbapplication.fragment.SecondFragment
+import com.parul.imdbapplication.presentation.fragment.FirstFragment
+import com.parul.imdbapplication.presentation.fragment.SecondFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

@@ -2,10 +2,9 @@ package com.parul.imdbapplication.dagger
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.parul.imdbapplication.dagger.ViewModelFactory
-import com.parul.imdbapplication.viewModel.FirstFragmentViewModel
-import com.parul.imdbapplication.viewModel.MainViewModel
-import com.parul.imdbapplication.viewModel.SecondFragmentViewModel
+import com.parul.imdbapplication.presentation.viewModel.FirstFragmentViewModel
+import com.parul.imdbapplication.presentation.viewModel.MainViewModel
+import com.parul.imdbapplication.presentation.viewModel.SecondFragmentViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

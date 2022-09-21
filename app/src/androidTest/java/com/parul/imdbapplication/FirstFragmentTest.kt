@@ -4,7 +4,6 @@ import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.test.core.app.ActivityScenario
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
@@ -12,13 +11,12 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.parul.imdbapplication.activity.MainActivity
-import com.parul.imdbapplication.fragment.FirstFragment
-import com.parul.imdbapplication.fragment.SecondFragment
+import com.parul.imdbapplication.presentation.activity.MainActivity
+import com.parul.imdbapplication.presentation.fragment.FirstFragment
+import com.parul.imdbapplication.presentation.fragment.SecondFragment
 import org.hamcrest.CoreMatchers
 import org.hamcrest.Matcher
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 

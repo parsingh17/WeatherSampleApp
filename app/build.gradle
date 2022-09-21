@@ -69,6 +69,14 @@ dependencies {
     implementation "androidx.viewpager2:viewpager2:1.0.0"
     implementation "androidx.activity:activity-ktx:1.1.0"
 
+    // architectural components
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    // coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1'
+    // coroutine lifecycle scopes
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
+
     // Google
     implementation 'com.google.android.material:material:1.2.0'
 
