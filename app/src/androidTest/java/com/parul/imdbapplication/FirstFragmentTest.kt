@@ -13,7 +13,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.parul.imdbapplication.presentation.activity.MainActivity
 import com.parul.imdbapplication.presentation.fragment.FirstFragment
-import com.parul.imdbapplication.presentation.fragment.SecondFragment
+import com.parul.imdbapplication.presentation.fragment.WeatherDetailsFragment
 import org.hamcrest.CoreMatchers
 import org.hamcrest.Matcher
 import org.junit.Before
@@ -50,9 +50,9 @@ class FirstFragmentTest {
 
 
        //onView(withId(R.id.tv_address)).perform(setTextInTextView(address))
-        onView(withId(R.id.button_first)).perform(click())
+        onView(withId(R.id.button_next)).perform(click())
 
-        val scenario = launchFragmentInContainer<SecondFragment>()
+        val scenario = launchFragmentInContainer<WeatherDetailsFragment>()
         //Espresso.closeSoftKeyboard()
     }
 

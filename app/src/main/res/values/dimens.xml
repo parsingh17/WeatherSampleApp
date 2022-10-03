@@ -1,3 +1,9 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="collapsing_toolbar_height">300dp</dimen>
+    <dimen name="zero_dp">0dp</dimen>
+    <dimen name="guideline_200dp">200dp</dimen>
+    <dimen name="text_size_20sp">20sp</dimen>
+    <dimen name="button_margin_30dp">30dp</dimen>
+    <dimen name="img_view_height">200dp</dimen>
 </resources>

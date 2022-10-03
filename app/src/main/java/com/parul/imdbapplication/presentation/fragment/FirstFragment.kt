@@ -12,13 +12,12 @@ import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.parul.imdbapplication.R
-import com.parul.imdbapplication.databinding.FragmentFirstBinding
-import androidx.databinding.DataBindingUtil
 import com.parul.imdbapplication.presentation.viewModel.FirstFragmentViewModel
 import androidx.lifecycle.Observer
 import com.parul.imdbapplication.common.LOCATION_PERMISSION_REQUEST
 import com.parul.imdbapplication.common.LOCATION_PERMISSION_STRING
 import com.parul.imdbapplication.common.PermissionsUtil
+import com.parul.imdbapplication.databinding.FragmentFirstBinding
 import com.parul.imdbapplication.presentation.viewModel.FirstFragmentViewModel.Companion.EVENT_FETCHED_LOCATION
 import com.parul.imdbapplication.presentation.viewModel.FirstFragmentViewModel.Companion.NAV_BACK
 import com.parul.imdbapplication.presentation.viewModel.FirstFragmentViewModel.Companion.NAV_NEXT
@@ -36,16 +35,21 @@ class FirstFragment : BaseFragment(), FirstFragmentEventListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_first, container, false)
-        viewModel = ViewModelProvider(this, mViewModelFactory).get(FirstFragmentViewModel::class.java)
+        binding = FragmentFirstBinding.inflate(inflater, container, false)
+        viewModel = ViewModelProvider(this, mViewModelFactory)[FirstFragmentViewModel::class.java]
         subscribeToNavigationChanges()
         subscribeLocationUpdate()
         checkLocationPermission()
         setupBackPress()
+        setupClickListener()
         return with(binding) {
-            firstFragmentEventListener = this@FirstFragment
-            vm = viewModel
             root
+        }
+    }
+
+    private fun setupClickListener() {
+        binding.buttonNext.setOnClickListener {
+            viewModel.onNextButtonClicked()
         }
     }
 
@@ -57,7 +61,7 @@ class FirstFragment : BaseFragment(), FirstFragmentEventListener {
                 }
                 NAV_NEXT -> {
                     findNavController().navigate(
-                        R.id.action_FirstFragment_to_SecondFragment,
+                        R.id.action_FirstFragment_to_WeatherDetailsFragment,
                         Bundle().apply {
                             putString("LAT", viewModel.myCurrentLatLngLiveData?.latitude.toString())
                             putString("LNG", viewModel.myCurrentLatLngLiveData?.longitude.toString())
@@ -80,11 +84,10 @@ class FirstFragment : BaseFragment(), FirstFragmentEventListener {
                 viewModel.requestLocationUpdate()
             }
         }
-        else {
-            //showLocationOffPopup(activity as FragmentActivity)
-        }
+
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -103,10 +106,10 @@ class FirstFragment : BaseFragment(), FirstFragmentEventListener {
 
     private fun subscribeLocationUpdate() {
 
-        viewModel.address.observe(viewLifecycleOwner, Observer {
-            Log.d("WEATHER","subscribeLocationUpdate")
-            tv_address.text = viewModel.address.value
-        })
+        viewModel.address.observe(viewLifecycleOwner) {
+            Log.d("WEATHER", "subscribeLocationUpdate")
+            tv_address.text = it
+        }
     }
 
     /*

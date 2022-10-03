@@ -4,8 +4,8 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.location.Geocoder
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.model.LatLng
 import com.parul.imdbapplication.common.SingleLiveEvent
@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 class FirstFragmentViewModel @Inject constructor(
     val app: Application
-) : AndroidViewModel(app){
+) : ViewModel(){
 
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     var myCurrentLatLngLiveData: LatLng? = null
@@ -29,17 +29,19 @@ class FirstFragmentViewModel @Inject constructor(
         fusedLocationProviderClient.flushLocations()
 
         val locationRequest = LocationRequest().apply {
- /*           interval = TimeUnit.SECONDS.toMillis(2000)
-            fastestInterval = TimeUnit.SECONDS.toMillis(1200)*/
+            interval = TimeUnit.SECONDS.toMillis(2000)
+            fastestInterval = TimeUnit.SECONDS.toMillis(1200)
             maxWaitTime = TimeUnit.MINUTES.toMillis(1000)
-            numUpdates = 1
-            priority = LocationRequest.PRIORITY_LOW_POWER
+            numUpdates = 2
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
 
         val locationCallback = object : LocationCallback() {
-            override fun onLocationResult(locationResult: LocationResult?) {
+            override fun onLocationResult(locationResult: LocationResult) {
                 super.onLocationResult(locationResult)
-                myCurrentLatLngLiveData = locationResult?.lastLocation?.let { LatLng(it.latitude, it.longitude) }
+                myCurrentLatLngLiveData = locationResult.lastLocation?.let {
+                    LatLng(it.latitude, it.longitude)
+                }
                 updateCurrentAddress()
                 navigationCommand.value = EVENT_FETCHED_LOCATION
             }
@@ -48,13 +50,13 @@ class FirstFragmentViewModel @Inject constructor(
     }
 
     fun updateCurrentAddress() {
-        //geocoder = Geocoder(app, Locale.getDefault())
-        if (myCurrentLatLngLiveData != null) {
+        myCurrentLatLngLiveData?.let {
             val addresses = Geocoder(app, Locale.getDefault()).getFromLocation(
-                myCurrentLatLngLiveData!!.latitude,
-                myCurrentLatLngLiveData!!.longitude, 1)
-            address.value = addresses[0].getAddressLine(0)
+                it.latitude,
+                it.longitude, 1)
+            address.value = addresses?.get(0)?.getAddressLine(0)
         }
+
         Log.d("WEATHER","address = ${address.value}")
     }
 

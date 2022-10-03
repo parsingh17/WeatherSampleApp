@@ -12,17 +12,17 @@
         tools:layout="@layout/fragment_first">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_FirstFragment_to_WeatherDetailsFragment"
+            app:destination="@id/WeatherDetailsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.parul.imdbapplication.presentation.fragment.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        android:id="@+id/WeatherDetailsFragment"
+        android:name="com.parul.imdbapplication.presentation.fragment.WeatherDetailsFragment"
+        android:label="@string/weather_details_fragment_label"
+        tools:layout="@layout/fragment_weather_details">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            android:id="@+id/action_WeatherDetailsFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
 </navigation>

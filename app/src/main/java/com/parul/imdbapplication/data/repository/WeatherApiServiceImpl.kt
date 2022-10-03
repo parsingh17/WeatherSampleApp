@@ -13,7 +13,6 @@ class WeatherApiServiceImpl @Inject constructor(
     private val apiService: WeatherAPI,
     private val WeatherModelMapper: dagger.Lazy<WeatherModelMapper>
 ): WeatherRepo {
-    private var weatherConciseDetails: WeatherConciseDetails? = null
 
     override fun getData(cityName: String): Single<WeatherConciseDetails>  = apiService.getData(cityName).map { WeatherModelMapper.get().toWeatherConciseDetails(it) }
 

@@ -3,15 +3,12 @@ package com.parul.imdbapplication
 
 import android.app.Application
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.parul.imdbapplication.data.model.Coord
-import com.parul.imdbapplication.data.model.MainData
-import com.parul.imdbapplication.data.model.Weather
 import com.parul.imdbapplication.data.model.WeatherModel
 import com.parul.imdbapplication.common.SingleLiveEvent
 import com.parul.imdbapplication.domain.model.WeatherConciseDetails
 import com.parul.imdbapplication.domain.usecases.GetWeatherByCityUseCase
 import com.parul.imdbapplication.domain.usecases.GetWeatherByLatLngUseCase
-import com.parul.imdbapplication.presentation.viewModel.SecondFragmentViewModel
+import com.parul.imdbapplication.presentation.viewModel.WeatherDetailsFragmentViewModel
 import io.reactivex.Observer
 import io.reactivex.Single
 import org.junit.Before
@@ -50,14 +47,14 @@ class GetWeatherByLongLatUsecaseTest {
     @Mock
     lateinit var observer: Observer<SingleLiveEvent<Int>>
 
-    lateinit var secondFragmentViewModel: SecondFragmentViewModel
+    lateinit var weatherDetailsFragmentViewModel: WeatherDetailsFragmentViewModel
 
     private val application = Mockito.mock(Application::class.java)
 
     @Before
     fun setUp() {
         // initialize the ViewModed with a mocked github api
-        secondFragmentViewModel = SecondFragmentViewModel(application, getWeatherByLatLngUseCase, getWeatherByCityUseCase)
+        weatherDetailsFragmentViewModel = WeatherDetailsFragmentViewModel(application, getWeatherByLatLngUseCase, getWeatherByCityUseCase)
     }
 
     @Test
@@ -80,10 +77,10 @@ class GetWeatherByLongLatUsecaseTest {
             .thenReturn(Single.just(mockWeatherDate))
 
         // observe on the MutableLiveData with an observer
-        secondFragmentViewModel.navigationCommand.observeForever(observer)
-        secondFragmentViewModel.getWeatherDataFromLatLng(lat, long)
+        weatherDetailsFragmentViewModel.navigationCommand.observeForever(observer)
+        weatherDetailsFragmentViewModel.getWeatherDataFromLatLng(lat, long)
 
-        assertEquals(SecondFragmentViewModel.UPDATE_WEATHER_DATA, secondFragmentViewModel.navigationCommand.value)
+        assertEquals(WeatherDetailsFragmentViewModel.UPDATE_WEATHER_DATA, weatherDetailsFragmentViewModel.navigationCommand.value)
     }
 
     @Test
@@ -108,10 +105,10 @@ class GetWeatherByLongLatUsecaseTest {
             .thenReturn(Single.error(IOException()))
 
         // observe on the MutableLiveData with an observer
-        secondFragmentViewModel.navigationCommand.observeForever(observer)
-        secondFragmentViewModel.getWeatherDataFromLatLng(lat, long)
+        weatherDetailsFragmentViewModel.navigationCommand.observeForever(observer)
+        weatherDetailsFragmentViewModel.getWeatherDataFromLatLng(lat, long)
 
-        assertEquals(SecondFragmentViewModel.UPDATE_ERROR, secondFragmentViewModel.navigationCommand.value)
+        assertEquals(WeatherDetailsFragmentViewModel.UPDATE_ERROR, weatherDetailsFragmentViewModel.navigationCommand.value)
     }
 
     @Test
@@ -133,10 +130,10 @@ class GetWeatherByLongLatUsecaseTest {
             .thenReturn(Single.just(mockWeatherDate))
 
         // observe on the MutableLiveData with an observer
-        secondFragmentViewModel.navigationCommand.observeForever(observer)
-        secondFragmentViewModel.getWeatherDataByCity(cityName)
+        weatherDetailsFragmentViewModel.navigationCommand.observeForever(observer)
+        weatherDetailsFragmentViewModel.getWeatherDataByCity(cityName)
 
-        assertEquals(SecondFragmentViewModel.UPDATE_WEATHER_DATA, secondFragmentViewModel.navigationCommand.value)
+        assertEquals(WeatherDetailsFragmentViewModel.UPDATE_WEATHER_DATA, weatherDetailsFragmentViewModel.navigationCommand.value)
     }
 
     @Test
@@ -147,17 +144,17 @@ class GetWeatherByLongLatUsecaseTest {
             .thenReturn(Single.error(IOException()))
 
         // observe on the MutableLiveData with an observer
-        secondFragmentViewModel.navigationCommand.observeForever(observer)
-        secondFragmentViewModel.getWeatherDataByCity("")
+        weatherDetailsFragmentViewModel.navigationCommand.observeForever(observer)
+        weatherDetailsFragmentViewModel.getWeatherDataByCity("")
 
-        assertEquals(SecondFragmentViewModel.UPDATE_ERROR, secondFragmentViewModel.navigationCommand.value)
+        assertEquals(WeatherDetailsFragmentViewModel.UPDATE_ERROR, weatherDetailsFragmentViewModel.navigationCommand.value)
     }
 
 
     @Test
     fun `test onBackPressed`() {
-        secondFragmentViewModel.onBackPressed()
-        assertEquals(SecondFragmentViewModel.NAV_BACK, secondFragmentViewModel.navigationCommand.value)
+        weatherDetailsFragmentViewModel.onBackPressed()
+        assertEquals(WeatherDetailsFragmentViewModel.NAV_BACK, weatherDetailsFragmentViewModel.navigationCommand.value)
     }
 
 }

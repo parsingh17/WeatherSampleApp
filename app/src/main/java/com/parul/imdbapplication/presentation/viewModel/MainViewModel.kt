@@ -1,7 +1,7 @@
 package com.parul.imdbapplication.presentation.viewModel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 
 import com.parul.imdbapplication.common.SingleLiveEvent
 import io.reactivex.disposables.CompositeDisposable
@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
     val app: Application
-) : AndroidViewModel(app) {
+) : ViewModel() {
     private val compositeDisposable = CompositeDisposable()
 
     var eventCommand = SingleLiveEvent<Int>()

@@ -26,11 +26,9 @@ object PermissionsUtil {
      * Single permission request
      */
     fun requestPermissionAccess(fragment: Fragment, permission: String, requestCode: Int) {
-        // if (checkSelfPermission(activity, permission) == PackageManager.PERMISSION_DENIED) {
         fragment.requestPermissions(
             arrayOf(permission), requestCode
         )
-        //}
     }
 
     fun isLocationOn(context: Context): Boolean {

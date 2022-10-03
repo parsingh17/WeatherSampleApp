@@ -1,5 +1,7 @@
 package com.parul.imdbapplication.data.mappers
 
+import com.parul.imdbapplication.common.IMAGE_RESOLUTION
+import com.parul.imdbapplication.common.IMAGE_URL
 import com.parul.imdbapplication.data.model.WeatherModel
 import com.parul.imdbapplication.domain.model.WeatherConciseDetails
 import javax.inject.Inject
@@ -10,10 +12,10 @@ import javax.inject.Inject
 class WeatherModelMapper @Inject constructor(){
     fun toWeatherConciseDetails(weatherModelServer: WeatherModel): WeatherConciseDetails {
         return WeatherConciseDetails(
-            weatherMain = weatherModelServer.weather[0].main ?: "",
-            mainDataTemp = weatherModelServer.main.temp.toString() + "°C" ?: "",
-            weatherIconUrl = "https://openweathermap.org/img/wn/" + weatherModelServer.weather.get(0).icon + "@2x.png" ?: "",
-            weatherDescription = weatherModelServer.weather[0].description ?: ""
+            weatherMain = weatherModelServer.weather[0].main,
+            mainDataTemp = weatherModelServer.main.temp.toString() + "°C",
+            weatherIconUrl = IMAGE_URL + weatherModelServer.weather[0].icon + IMAGE_RESOLUTION,
+            weatherDescription = weatherModelServer.weather[0].description
         )
     }
 }
