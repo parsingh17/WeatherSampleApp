@@ -13,7 +13,7 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class FirstFragmentViewModel @Inject constructor(
+class CurrentLocationFragmentViewModel @Inject constructor(
     val app: Application
 ) : ViewModel(){
 

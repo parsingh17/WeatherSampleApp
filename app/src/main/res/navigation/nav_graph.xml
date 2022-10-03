@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/CurrentLocationFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.parul.imdbapplication.presentation.fragment.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        android:id="@+id/CurrentLocationFragment"
+        android:name="com.parul.imdbapplication.presentation.fragment.CurrentLocationFragment"
+        android:label="@string/current_location_fragment"
+        tools:layout="@layout/fragment_current_location">
 
         <action
-            android:id="@+id/action_FirstFragment_to_WeatherDetailsFragment"
+            android:id="@+id/action_CurrentLocationFragment_to_WeatherDetailsFragment"
             app:destination="@id/WeatherDetailsFragment" />
     </fragment>
     <fragment
@@ -22,7 +22,7 @@
         tools:layout="@layout/fragment_weather_details">
 
         <action
-            android:id="@+id/action_WeatherDetailsFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_WeatherDetailsFragment_to_CurrentLocationFragment"
+            app:destination="@id/CurrentLocationFragment" />
     </fragment>
 </navigation>

@@ -5,7 +5,7 @@ import com.parul.imdbapplication.domain.repositories.WeatherRepo
 import io.reactivex.Single
 import javax.inject.Inject
 
-class GetWeatherByCityUseCase @Inject constructor (val weatherRepository: WeatherRepo) {
+class GetWeatherByCityUseCase @Inject constructor (private val weatherRepository: WeatherRepo) {
 
     operator fun invoke(city: String): Single<WeatherConciseDetails> {
         return weatherRepository.getData(city)

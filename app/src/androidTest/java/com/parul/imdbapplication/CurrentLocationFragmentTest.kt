@@ -12,7 +12,7 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.parul.imdbapplication.presentation.activity.MainActivity
-import com.parul.imdbapplication.presentation.fragment.FirstFragment
+import com.parul.imdbapplication.presentation.fragment.CurrentLocationFragment
 import com.parul.imdbapplication.presentation.fragment.WeatherDetailsFragment
 import org.hamcrest.CoreMatchers
 import org.hamcrest.Matcher
@@ -22,7 +22,7 @@ import org.junit.runner.RunWith
 
 
 @RunWith(AndroidJUnit4::class)
-class FirstFragmentTest {
+class CurrentLocationFragmentTest {
 
     //@get : Rule
     //var mActivityRule = FragmentScenario(FirstFragment::class.java)
@@ -36,7 +36,7 @@ class FirstFragmentTest {
 
         val address = "C V Raman Nagar, Bangalore"
 
-        val scenario = launchFragmentInContainer<FirstFragment>()
+        val scenario = launchFragmentInContainer<CurrentLocationFragment>()
 
         onView(withId(R.id.tv_address)).perform(setTextInTextView(address))
         //scenario = launchFragmentInContainer()

@@ -2,7 +2,7 @@ package com.parul.imdbapplication.dagger
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.parul.imdbapplication.presentation.viewModel.FirstFragmentViewModel
+import com.parul.imdbapplication.presentation.viewModel.CurrentLocationFragmentViewModel
 import com.parul.imdbapplication.presentation.viewModel.MainViewModel
 import com.parul.imdbapplication.presentation.viewModel.WeatherDetailsFragmentViewModel
 import dagger.Binds
@@ -22,8 +22,8 @@ abstract class ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(FirstFragmentViewModel::class)
-    abstract fun bindFirstFragmentViewModel(viewModel: FirstFragmentViewModel): ViewModel
+    @ViewModelKey(CurrentLocationFragmentViewModel::class)
+    abstract fun bindFirstFragmentViewModel(viewModel: CurrentLocationFragmentViewModel): ViewModel
 
     @Binds
     @IntoMap

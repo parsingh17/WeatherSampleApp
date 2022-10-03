@@ -6,13 +6,12 @@ import android.location.Geocoder
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.model.LatLng
-import com.parul.imdbapplication.presentation.viewModel.FirstFragmentViewModel
-import com.parul.imdbapplication.presentation.viewModel.FirstFragmentViewModel.Companion.NAV_BACK
-import com.parul.imdbapplication.presentation.viewModel.FirstFragmentViewModel.Companion.NAV_NEXT
+import com.parul.imdbapplication.presentation.viewModel.CurrentLocationFragmentViewModel
+import com.parul.imdbapplication.presentation.viewModel.CurrentLocationFragmentViewModel.Companion.NAV_BACK
+import com.parul.imdbapplication.presentation.viewModel.CurrentLocationFragmentViewModel.Companion.NAV_NEXT
 import io.mockk.verify
 import org.junit.*
 import org.junit.runner.RunWith
-import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
 import org.powermock.api.mockito.PowerMockito.*
@@ -21,7 +20,7 @@ import kotlin.collections.ArrayList
 import kotlin.test.assertEquals
 
 @RunWith(MockitoJUnitRunner::class)
-class FirstFragmentViewModelTest {
+class CurrentLocationFragmentViewModelTest {
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
@@ -35,7 +34,7 @@ class FirstFragmentViewModelTest {
 
     private val application = Mockito.mock(Application::class.java)
 
-    private lateinit var viewModel: FirstFragmentViewModel
+    private lateinit var viewModel: CurrentLocationFragmentViewModel
 
     private lateinit var mockFusedLocationProviderClient :FusedLocationProviderClient
 
@@ -44,7 +43,7 @@ class FirstFragmentViewModelTest {
 
     @Before
     fun setup() {
-        viewModel = FirstFragmentViewModel(application)
+        viewModel = CurrentLocationFragmentViewModel(application)
 
         mockFusedLocationProviderClient = Mockito.mock(FusedLocationProviderClient::class.java)
         viewModel.fusedLocationProviderClient = mockFusedLocationProviderClient

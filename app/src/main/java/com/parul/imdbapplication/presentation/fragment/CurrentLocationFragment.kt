@@ -12,31 +12,30 @@ import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.parul.imdbapplication.R
-import com.parul.imdbapplication.presentation.viewModel.FirstFragmentViewModel
+import com.parul.imdbapplication.presentation.viewModel.CurrentLocationFragmentViewModel
 import androidx.lifecycle.Observer
 import com.parul.imdbapplication.common.LOCATION_PERMISSION_REQUEST
 import com.parul.imdbapplication.common.LOCATION_PERMISSION_STRING
 import com.parul.imdbapplication.common.PermissionsUtil
-import com.parul.imdbapplication.databinding.FragmentFirstBinding
-import com.parul.imdbapplication.presentation.viewModel.FirstFragmentViewModel.Companion.EVENT_FETCHED_LOCATION
-import com.parul.imdbapplication.presentation.viewModel.FirstFragmentViewModel.Companion.NAV_BACK
-import com.parul.imdbapplication.presentation.viewModel.FirstFragmentViewModel.Companion.NAV_NEXT
-import kotlinx.android.synthetic.main.fragment_first.*
+import com.parul.imdbapplication.databinding.FragmentCurrentLocationBinding
+import com.parul.imdbapplication.presentation.viewModel.CurrentLocationFragmentViewModel.Companion.EVENT_FETCHED_LOCATION
+import com.parul.imdbapplication.presentation.viewModel.CurrentLocationFragmentViewModel.Companion.NAV_BACK
+import com.parul.imdbapplication.presentation.viewModel.CurrentLocationFragmentViewModel.Companion.NAV_NEXT
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class FirstFragment : BaseFragment(), FirstFragmentEventListener {
+class CurrentLocationFragment : BaseFragment(), CurrentLocationFragmentEventListener {
 
-    private lateinit var binding: FragmentFirstBinding
-    private lateinit var viewModel: FirstFragmentViewModel
+    private lateinit var binding: FragmentCurrentLocationBinding
+    private lateinit var viewModel: CurrentLocationFragmentViewModel
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentFirstBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this, mViewModelFactory)[FirstFragmentViewModel::class.java]
+        binding = FragmentCurrentLocationBinding.inflate(inflater, container, false)
+        viewModel = ViewModelProvider(this, mViewModelFactory)[CurrentLocationFragmentViewModel::class.java]
         subscribeToNavigationChanges()
         subscribeLocationUpdate()
         checkLocationPermission()
@@ -61,7 +60,7 @@ class FirstFragment : BaseFragment(), FirstFragmentEventListener {
                 }
                 NAV_NEXT -> {
                     findNavController().navigate(
-                        R.id.action_FirstFragment_to_WeatherDetailsFragment,
+                        R.id.action_CurrentLocationFragment_to_WeatherDetailsFragment,
                         Bundle().apply {
                             putString("LAT", viewModel.myCurrentLatLngLiveData?.latitude.toString())
                             putString("LNG", viewModel.myCurrentLatLngLiveData?.longitude.toString())
@@ -108,7 +107,7 @@ class FirstFragment : BaseFragment(), FirstFragmentEventListener {
 
         viewModel.address.observe(viewLifecycleOwner) {
             Log.d("WEATHER", "subscribeLocationUpdate")
-            tv_address.text = it
+            binding.tvAddress.text = it
         }
     }
 
@@ -129,8 +128,6 @@ class FirstFragment : BaseFragment(), FirstFragmentEventListener {
     }
 }
 
-interface FirstFragmentEventListener {
+interface CurrentLocationFragmentEventListener {
     fun onNextButtonClicked()
 }
-
-
