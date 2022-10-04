@@ -53,7 +53,7 @@ class WeatherDetailsFragmentViewModelTest {
 
     @Before
     fun setUp() {
-        // initialize the ViewModed with a mocked github api
+        // initialize the ViewModel with a mocked github api
         weatherDetailsFragmentViewModel = WeatherDetailsFragmentViewModel(application, getWeatherByLatLngUseCase, getWeatherByCityUseCase)
     }
 
@@ -62,9 +62,7 @@ class WeatherDetailsFragmentViewModelTest {
         // mock data
         val lat = "1.22"
         val long = "2.22"
-        /*       var weather = Weather(id = 804, main = "clouds", description = "broken clouds", icon = "04n")
-               var weatherList = mutableListOf<Weather>()
-               weatherList.add(weather)*/
+
         val mockWeatherDate = WeatherConciseDetails(
             mainDataTemp = "24.56°C",
             weatherMain = "Cloud",
@@ -73,7 +71,7 @@ class WeatherDetailsFragmentViewModelTest {
         )
 
         // make the github api to return mock data
-        Mockito.`when`(getWeatherByLatLngUseCase.invoke(lat, long))
+        Mockito.`when`(getWeatherByLatLngUseCase.getDataFromLatLng(lat, long))
             .thenReturn(Single.just(mockWeatherDate))
 
         // observe on the MutableLiveData with an observer
@@ -88,9 +86,6 @@ class WeatherDetailsFragmentViewModelTest {
         // mock data
         val lat = "2222222221212871298712987"
         val long = "-1"
-        /*       var weather = Weather(id = 804, main = "clouds", description = "broken clouds", icon = "04n")
-               var weatherList = mutableListOf<Weather>()
-               weatherList.add(weather)*/
         val mockWeatherDate = WeatherConciseDetails(
             mainDataTemp = "24.56°C",
             weatherMain = "Cloud",
@@ -101,7 +96,7 @@ class WeatherDetailsFragmentViewModelTest {
         var weatherMock = Mockito.mock(WeatherModel::class.java)
 
         // make the github api to return mock data
-        Mockito.`when`(getWeatherByLatLngUseCase.invoke(lat, long))
+        Mockito.`when`(getWeatherByLatLngUseCase.getDataFromLatLng(lat, long))
             .thenReturn(Single.error(IOException()))
 
         // observe on the MutableLiveData with an observer
@@ -115,9 +110,7 @@ class WeatherDetailsFragmentViewModelTest {
     fun `test getWeatherData with success`() {
         // mock data
         val cityName = "Bengaluru"
-        /*       var weather = Weather(id = 804, main = "clouds", description = "broken clouds", icon = "04n")
-               var weatherList = mutableListOf<Weather>()
-               weatherList.add(weather)*/
+
         val mockWeatherDate = WeatherConciseDetails(
             mainDataTemp = "24.56°C",
             weatherMain = "Cloud",
@@ -126,7 +119,7 @@ class WeatherDetailsFragmentViewModelTest {
         )
 
         // make the github api to return mock data
-        Mockito.`when`(getWeatherByCityUseCase.invoke(cityName))
+        Mockito.`when`(getWeatherByCityUseCase.getDataByCity(cityName))
             .thenReturn(Single.just(mockWeatherDate))
 
         // observe on the MutableLiveData with an observer
@@ -140,7 +133,7 @@ class WeatherDetailsFragmentViewModelTest {
     fun `test getWeatherData with failure`() {
 
         // make the github api to return mock data
-        Mockito.`when`(getWeatherByCityUseCase.invoke(""))
+        Mockito.`when`(getWeatherByCityUseCase.getDataByCity(""))
             .thenReturn(Single.error(IOException()))
 
         // observe on the MutableLiveData with an observer

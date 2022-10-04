@@ -105,7 +105,7 @@ class CurrentLocationFragment : BaseFragment(), CurrentLocationFragmentEventList
 
     private fun subscribeLocationUpdate() {
 
-        viewModel.address.observe(viewLifecycleOwner) {
+        viewModel.addressLiveData.observe(viewLifecycleOwner) {
             Log.d("WEATHER", "subscribeLocationUpdate")
             binding.tvAddress.text = it
         }

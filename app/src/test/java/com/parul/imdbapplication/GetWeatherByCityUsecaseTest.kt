@@ -6,7 +6,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.parul.imdbapplication.common.SingleLiveEvent
 import com.parul.imdbapplication.domain.model.WeatherConciseDetails
 import com.parul.imdbapplication.domain.repositories.WeatherRepo
-import com.parul.imdbapplication.domain.usecases.GetWeatherByLatLngUseCase
+import com.parul.imdbapplication.domain.usecases.GetWeatherByCityUseCase
 import io.reactivex.Observer
 import io.reactivex.Single
 import org.junit.Before
@@ -21,7 +21,7 @@ import org.mockito.junit.MockitoJUnitRunner
 
 
 @RunWith(MockitoJUnitRunner::class)
-class GetWeatherByLongLatUsecaseTest {
+class GetWeatherByCityUsecaseTest {
     // A JUnit Test Rule that swaps the background executor used by
     // the Architecture Components with a different one which executes each task synchronously.
     // You can use this rule for your host side tests that use Architecture Components.
@@ -39,19 +39,18 @@ class GetWeatherByLongLatUsecaseTest {
     lateinit var weatherRepository: WeatherRepo
 
 
-    lateinit var getWeatherByLatLngUseCase: GetWeatherByLatLngUseCase
+    lateinit var getWeatherByCityUseCase: GetWeatherByCityUseCase
 
     @Before
     fun setUp() {
         // initialize the usecase with a mocked github api
-        getWeatherByLatLngUseCase = GetWeatherByLatLngUseCase(weatherRepository)
+        getWeatherByCityUseCase = GetWeatherByCityUseCase(weatherRepository)
     }
 
     @Test
     fun `test getWeatherByLatLngUseCase with success`() {
 
-        val lat = "2222222221212871298712987"
-        val long = "21"
+        val city = "New York"
         val mockWeatherDate = WeatherConciseDetails(
             mainDataTemp = "24.56°C",
             weatherMain = "Cloud",
@@ -59,10 +58,10 @@ class GetWeatherByLongLatUsecaseTest {
             weatherIconUrl = "https://openweathermap.org/img/wn/03n@2x.png"
         )
 
-        `when`(getWeatherByLatLngUseCase.getDataFromLatLng(lat, long))
+        `when`(getWeatherByCityUseCase.getDataByCity(city))
             .thenReturn(Single.just(mockWeatherDate))
 
-        getWeatherByLatLngUseCase.getDataFromLatLng(lat, long)
+        getWeatherByCityUseCase.getDataByCity(city)
             .test()
             .assertComplete()
 

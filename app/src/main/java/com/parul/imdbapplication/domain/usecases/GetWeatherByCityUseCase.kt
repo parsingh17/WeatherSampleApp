@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class GetWeatherByCityUseCase @Inject constructor (private val weatherRepository: WeatherRepo) {
 
-    operator fun invoke(city: String): Single<WeatherConciseDetails> {
+     fun getDataByCity(city: String): Single<WeatherConciseDetails> {
         return weatherRepository.getData(city)
     }
 }

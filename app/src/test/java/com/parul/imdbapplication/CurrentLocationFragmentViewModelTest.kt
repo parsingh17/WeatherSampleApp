@@ -6,10 +6,12 @@ import android.location.Geocoder
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.model.LatLng
+import com.parul.imdbapplication.common.SingleLiveEvent
 import com.parul.imdbapplication.presentation.viewModel.CurrentLocationFragmentViewModel
 import com.parul.imdbapplication.presentation.viewModel.CurrentLocationFragmentViewModel.Companion.NAV_BACK
 import com.parul.imdbapplication.presentation.viewModel.CurrentLocationFragmentViewModel.Companion.NAV_NEXT
-import io.mockk.verify
+import io.reactivex.Observer
+import junit.framework.Assert.assertNotNull
 import org.junit.*
 import org.junit.runner.RunWith
 import org.mockito.Mockito
@@ -18,6 +20,7 @@ import org.powermock.api.mockito.PowerMockito.*
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 
 @RunWith(MockitoJUnitRunner::class)
 class CurrentLocationFragmentViewModelTest {
@@ -39,7 +42,6 @@ class CurrentLocationFragmentViewModelTest {
     private lateinit var mockFusedLocationProviderClient :FusedLocationProviderClient
 
     private lateinit var geocoding: Geocoder
-    //lateinit var addressList: MutableList<Address>
 
     @Before
     fun setup() {
@@ -57,28 +59,25 @@ class CurrentLocationFragmentViewModelTest {
 
     @Test
     @kotlin.jvm.Throws(Exception::class)
-    fun FromLocation_Location_Maybe_Locale() {
+    fun fromLocation_Location_Maybe_Locale() {
         doReturn(getMockAddresses()).`when`(geocoding)?.getFromLocation(12.97, 77.66, 1)
-        //Log.d("Unit testing = addressList ", addressList?.get(0)?.countryName ?: "address is null")
         assert(true)
     }
 
     @Test
     fun `test updateCurrentAddress when geocoder and currentLatLng supplied`() {
         val mockGeocoder = mock(Geocoder::class.java)
-        //val myData = Mockito.mock()
-        //`when`(Geocoder(application, Locale.getDefault())).thenReturn(mockGeocoder)
         Mockito.`when`((mockGeocoder).getFromLocation(
             12.12,
             12.22, 1)).thenReturn(getMockAddresses())
         viewModel.updateCurrentAddress()
-        verify { viewModel.address.value }
+        assertNotNull(viewModel.addressLiveData.value)
 
     }
 
-    fun getMockAddresses(): ArrayList<Address> {
-        var lists: ArrayList<Address> =  ArrayList<Address>()
-        var address = Address(Locale.getDefault())
+    private fun getMockAddresses(): ArrayList<Address> {
+        val lists: ArrayList<Address> =  ArrayList()
+        val address = Address(Locale.getDefault())
         address.setAddressLine(
             0,
             "XMF5+824, Suranjan Das Rd, Bhoomi Reddy Colony, New Tippasandra, Bengaluru, Karnataka 560075, India"
@@ -87,11 +86,6 @@ class CurrentLocationFragmentViewModelTest {
         lists.add(address)
         return lists
 
-/*        var list = ArrayList<Address>().apply{
-            add(Address(Locale("en-GB")))
-        }
-        list[0].setAddressLine(0,"XMF5+824, Suranjan Das Rd, Bhoomi Reddy Colony, New Tippasandra, Bengaluru, Karnataka 560075, India")
-        return list*/
     }
 
     @Test
@@ -106,3 +100,4 @@ class CurrentLocationFragmentViewModelTest {
         assertEquals(NAV_BACK, viewModel.navigationCommand.value)
     }
 }
+

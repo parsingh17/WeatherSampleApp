@@ -28,6 +28,7 @@ class WeatherDetailsFragmentViewModel @Inject constructor(
     val weatherDetailLiveData : LiveData<WeatherConciseDetails>
         get() = weatherMutableData
 
+
     fun handleArguments(arguments: Bundle?) {
         var lat = ""
         var lng = ""
@@ -44,7 +45,7 @@ class WeatherDetailsFragmentViewModel @Inject constructor(
     }
 
     fun getWeatherDataByCity(cityName: String = "New York") {
-        getWeatherByCityUseCase.invoke(cityName)
+        getWeatherByCityUseCase.getDataByCity(cityName)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -59,7 +60,7 @@ class WeatherDetailsFragmentViewModel @Inject constructor(
     }
 
     fun getWeatherDataFromLatLng(lat: String, lng: String) {
-        getWeatherByLatLngUseCase.invoke(lat, lng)
+        getWeatherByLatLngUseCase.getDataFromLatLng(lat, lng)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

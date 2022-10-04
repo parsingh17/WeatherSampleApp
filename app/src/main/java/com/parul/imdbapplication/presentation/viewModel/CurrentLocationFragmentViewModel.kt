@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Application
 import android.location.Geocoder
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.location.*
@@ -20,7 +21,11 @@ class CurrentLocationFragmentViewModel @Inject constructor(
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     var myCurrentLatLngLiveData: LatLng? = null
     var navigationCommand = SingleLiveEvent<Int>()
-    var address = MutableLiveData<String>()
+
+    private var address = MutableLiveData<String>()
+    val addressLiveData : LiveData<String>
+        get() = address
+
     lateinit var geocoder: Geocoder
 
     @SuppressLint("MissingPermission")
